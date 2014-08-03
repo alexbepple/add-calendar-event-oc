@@ -19,11 +19,13 @@ NSDate *dateFromString(NSString *dateString, NSString *dateFormat)
 
 int main(int argc, const char * argv[])
 {
-
     @autoreleasepool {
         NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
         
         EKEventStore *eventStore = [[EKEventStore alloc] init];
+        [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        }];
+        
         EKCalendar *calendar = findCalendarByTitle(eventStore, [args stringForKey:@"calendar"]);
         NSLog(@"Using calendar: %@ (%@)", calendar.title, calendar.description);
         
