@@ -6,7 +6,15 @@ EKCalendar *findCalendarByTitle(EKEventStore *eventStore, NSString *title)
         if ([calendar.title hasPrefix:title])
             return calendar;
     }
-    return [[eventStore calendarsForEntityType:EKCalendarTypeLocal]objectAtIndex:0];
+    return [[eventStore calendarsForEntityType:EKCalendarTypeLocal] objectAtIndex:0];
+}
+
+NSDate *dateFromString(NSString *dateString, NSString *dateFormat)
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:dateFormat];
+    NSDate *date = [dateFormatter dateFromString:dateString];
+    return date;
 }
 
 int main(int argc, const char * argv[])
@@ -23,7 +31,8 @@ int main(int argc, const char * argv[])
         event.calendar = calendar;
         event.title = [args stringForKey:@"title"];
         
-        event.startDate = [NSDate date];
+        event.startDate = dateFromString([args stringForKey:@"start"], @"yyyy-MM-dd HH:mm");
+        NSLog(@"Start: %@", event.startDate);
         event.endDate = [event.startDate dateByAddingTimeInterval:3600 * 0];
 
         NSError *error = nil;
