@@ -39,13 +39,9 @@ int main(int argc, const char * argv[])
 
         NSError *error = nil;
         BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
-        if (result) {
-            return YES;
-        } else {
+        if (!result) {
             NSLog(@"Error saving event: %@", error);
-            // unable to save event to the calendar
-            return NO;
+            return 1;
         }
     }
-    return 0;
 }
