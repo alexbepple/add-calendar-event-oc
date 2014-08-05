@@ -36,6 +36,7 @@ int main(int argc, const char * argv[])
         event.startDate = dateFromString([args stringForKey:@"start"], @"yyyy-MM-dd HH:mm");
         NSLog(@"Start: %@", event.startDate);
         event.endDate = [event.startDate dateByAddingTimeInterval:3600 * 0];
+        event.allDay = [args boolForKey:@"allDay"];
 
         NSError *error = nil;
         BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
