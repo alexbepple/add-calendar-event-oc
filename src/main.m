@@ -36,12 +36,7 @@ int main(int argc, const char * argv[])
         event.startDate = dateFromString([args stringForKey:@"start"]);
         NSLog(@"Start: %@", event.startDate);
         
-        NSString *endDate = [args stringForKey:@"end"];
-        if (endDate) {
-            event.endDate = dateFromString(endDate);
-        } else {
-            event.endDate = [event.startDate dateByAddingTimeInterval: [args integerForKey:@"durationInSeconds"]];
-        }
+        event.endDate = dateFromString([args stringForKey:@"end"]);
         NSLog(@"End: %@", event.endDate);
         
         event.allDay = [args boolForKey:@"allDay"];
