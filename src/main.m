@@ -9,10 +9,10 @@ EKCalendar *findCalendarByTitle(EKEventStore *eventStore, NSString *title)
     return [[eventStore calendarsForEntityType:EKCalendarTypeLocal] objectAtIndex:0];
 }
 
-NSDate *dateFromString(NSString *dateString, NSString *dateFormat)
+NSDate *dateFromString(NSString *dateString)
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:dateFormat];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSDate *date = [dateFormatter dateFromString:dateString];
     return date;
 }
@@ -33,12 +33,12 @@ int main(int argc, const char * argv[])
         event.calendar = calendar;
         event.title = [args stringForKey:@"title"];
         
-        event.startDate = dateFromString([args stringForKey:@"start"], @"yyyy-MM-dd HH:mm");
+        event.startDate = dateFromString([args stringForKey:@"start"]);
         NSLog(@"Start: %@", event.startDate);
         
         NSString *endDate = [args stringForKey:@"end"];
         if (endDate) {
-            event.endDate = dateFromString(endDate, @"yyyy-MM-dd HH:mm");
+            event.endDate = dateFromString(endDate);
         } else {
             event.endDate = [event.startDate dateByAddingTimeInterval: [args integerForKey:@"durationInSeconds"]];
         }
